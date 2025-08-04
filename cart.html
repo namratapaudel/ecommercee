@@ -1,0 +1,45 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart - Namrata's Ecommerce</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Your Shopping Cart</h1>
+    <a href="index.html">← Continue Shopping</a>
+  </header>
+
+  <main class="cart-container" id="cart-items"></main>
+
+  <footer>
+    <p>© 2025 Namrata's Ecommerce Site. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cartContainer = document.getElementById('cart-items');
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      let total = 0;
+      cartContainer.innerHTML = cart.map(item => {
+        total += item.price;
+        return `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div>
+              <h3>${item.name}</h3>
+              <p>Price: Rs. ${item.price}</p>
+            </div>
+          </div>
+        `;
+      }).join('') + `<h2>Total: Rs. ${total}</h2>`;
+    }
+  </script>
+</body>
+</html>
